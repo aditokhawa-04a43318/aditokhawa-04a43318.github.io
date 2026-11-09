@@ -1,0 +1,2049 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日大赛主题大赛骑乘 - 赛程追踪与骑手动态聚合</title>
+  <meta name="description" content="每日大赛主题大赛骑乘聚合骑乘竞技赛程、骑手动态与装备解析。提供每日大赛、主题大赛骑乘的耐力赛、速度赛、技巧赛条目，适合关注马术与骑乘竞技的爱好者查看。">
+  <meta name="keywords" content="耐力骑乘赛,速度赛规则,骑手装备测评,马术技巧赛,骑乘训练方法">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f7f4ef;
+      --surface: #ffffff;
+      --surface-alt: #f0ebe4;
+      --primary: #5c3d2e;
+      --primary-light: #8b6b55;
+      --accent: #b85e3a;
+      --accent-soft: #f3e2d9;
+      --text: #2b241e;
+      --text-muted: #6e6259;
+      --border: #e2d9d0;
+      --radius: 14px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 6px 20px rgba(0,0,0,0.06);
+      --font-sans: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+      --sticky-offset: 108px;
+      --header-height: 64px;
+      --announce-height: 44px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--sticky-offset);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-top: var(--sticky-offset);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 吸顶公告条 */
+    .announce-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--announce-height);
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 0 16px;
+      letter-spacing: 0.3px;
+    }
+
+    .announce-bar span {
+      font-weight: 500;
+      opacity: 0.95;
+    }
+
+    .announce-bar .dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #ffd27a;
+      border-radius: 50%;
+      margin-right: 10px;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* 吸顶页头 */
+    .site-header {
+      position: fixed;
+      top: var(--announce-height);
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-text {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+      white-space: nowrap;
+      letter-spacing: -0.2px;
+    }
+
+    .nav-main {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-main a {
+      font-size: 0.875rem;
+      padding: 6px 12px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-main a:hover {
+      background: var(--surface-alt);
+      color: var(--primary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--surface-alt);
+      border-radius: 24px;
+      padding: 0 12px;
+      height: 36px;
+      border: 1px solid transparent;
+      transition: border 0.2s;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--primary-light);
+      background: #fff;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.85rem;
+      width: 140px;
+      color: var(--text);
+      font-family: inherit;
+    }
+
+    .search-box input::placeholder {
+      color: #a89f97;
+    }
+
+    .search-box button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--primary-light);
+      font-size: 1rem;
+      padding: 0 2px;
+      line-height: 1;
+    }
+
+    /* 首屏 */
+    .hero {
+      padding: 48px 0 40px;
+      background: linear-gradient(170deg, #f7f4ef 0%, #efe8e0 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -60px;
+      top: -80px;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(184,94,58,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.8px;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 26px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--primary);
+      padding: 12px 26px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1.5px solid var(--primary-light);
+      transition: background 0.2s, border 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: var(--surface-alt);
+      border-color: var(--primary);
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-svg {
+      width: 100%;
+      max-width: 440px;
+      height: auto;
+    }
+
+    /* 主内容区 三栏门户 */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) 280px;
+      gap: 32px;
+      padding: 48px 0 64px;
+    }
+
+    /* 左频道索引 */
+    .channel-sidebar {
+      position: sticky;
+      top: var(--sticky-offset);
+      align-self: start;
+    }
+
+    .channel-sidebar h2 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .channel-list li {
+      margin-bottom: 4px;
+    }
+
+    .channel-list a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      transition: background 0.15s, color 0.15s;
+      font-weight: 500;
+    }
+
+    .channel-list a:hover {
+      background: var(--surface-alt);
+      color: var(--primary);
+    }
+
+    .channel-list a .ch-icon {
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* 主内容 */
+    .content-main {
+      min-width: 0;
+    }
+
+    /* 侧栏 */
+    .sidebar-right {
+      position: sticky;
+      top: var(--sticky-offset);
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .side-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .side-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .side-card h3 .badge {
+      font-size: 0.65rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .rank-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.85rem;
+    }
+
+    .rank-list li:last-child {
+      border-bottom: none;
+    }
+
+    .rank-list .rank-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: var(--surface-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .rank-list li:nth-child(1) .rank-num { background: #f5d76e; color: #5c3d2e; }
+    .rank-list li:nth-child(2) .rank-num { background: #c0c0c0; color: #3d3d3d; }
+    .rank-list li:nth-child(3) .rank-num { background: #cd7f32; color: #fff; }
+
+    .rank-list .rank-name {
+      flex: 1;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .rank-list .rank-meta {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .update-stream li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+    }
+
+    .update-stream li:last-child {
+      border-bottom: none;
+    }
+
+    .update-stream .upd-title {
+      font-weight: 600;
+      color: var(--text);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .update-stream .upd-time {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* 通用板块样式 */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .section-header h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+    }
+
+    .section-header .sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .section-intro {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    /* 概览段落 */
+    .overview-text {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #3d332b;
+    }
+
+    .overview-text p {
+      margin-bottom: 12px;
+    }
+
+    .overview-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.15s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: var(--surface-alt);
+    }
+
+    .card-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+      align-self: flex-start;
+    }
+
+    .card h3 {
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 12px;
+      flex: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .card-meta .hot {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .tag-sm {
+      font-size: 0.68rem;
+      background: var(--surface-alt);
+      color: var(--text-muted);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    /* 动态列表 */
+    .news-list {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .news-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .news-item:hover {
+      background: var(--surface-alt);
+    }
+
+    .news-time {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      min-width: 72px;
+      padding-top: 2px;
+      font-weight: 500;
+    }
+
+    .news-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .news-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .news-summary {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* 分类入口 */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .category-item {
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 18px 16px;
+      text-align: center;
+      transition: background 0.2s, border 0.2s, transform 0.15s;
+      display: block;
+      color: var(--text);
+    }
+
+    .category-item:hover {
+      background: var(--surface-alt);
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+      color: var(--primary);
+    }
+
+    .category-item .cat-icon {
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .category-item .cat-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .category-item .cat-count {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* 深度解析 */
+    .deep-dive {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 32px 36px;
+    }
+
+    .deep-dive h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.3px;
+    }
+
+    .deep-dive h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-top: 28px;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .deep-dive h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .deep-dive p {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: #3d332b;
+      margin-bottom: 12px;
+    }
+
+    .deep-dive ul {
+      list-style: disc;
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    .deep-dive li {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #3d332b;
+      margin-bottom: 6px;
+    }
+
+    /* FAQ */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      padding: 16px 20px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text);
+      transition: background 0.15s;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .faq-item[open] summary::after {
+      content: '−';
+      transform: rotate(180deg);
+    }
+
+    .faq-item summary:hover {
+      background: var(--surface-alt);
+    }
+
+    .faq-answer {
+      padding: 0 20px 18px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    /* 评论 */
+    .comment-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .comment-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 14px;
+    }
+
+    .comment-item:last-child {
+      border-bottom: none;
+    }
+
+    .comment-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .comment-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .comment-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .comment-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    .comment-date {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .comment-text {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: #4a4038;
+    }
+
+    /* 资讯 */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .news-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px;
+      transition: box-shadow 0.2s;
+    }
+
+    .news-card:hover {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .news-card .nc-date {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .news-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .news-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* 相关推荐 */
+    .related-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .related-tag {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text);
+      transition: background 0.15s, border 0.15s;
+    }
+
+    .related-tag:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* 时间线 */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none;
+    }
+
+    .timeline-date {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--primary);
+      min-width: 80px;
+      flex-shrink: 0;
+    }
+
+    .timeline-content {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .timeline-content strong {
+      font-weight: 600;
+    }
+
+    /* 页尾 */
+    .site-footer {
+      background: var(--primary);
+      color: rgba(255,255,255,0.85);
+      padding: 48px 0 32px;
+      margin-top: 32px;
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 36px;
+      margin-bottom: 36px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand .brand-icon {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .footer-brand .brand-text {
+      color: #fff;
+    }
+
+    .footer-desc {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      max-width: 300px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-col li {
+      margin-bottom: 8px;
+    }
+
+    .footer-col a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+      transition: color 0.15s;
+    }
+
+    .footer-col a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* 响应式 */
+    @media (max-width: 1024px) {
+      .main-layout {
+        grid-template-columns: 1fr 260px;
+      }
+      .channel-sidebar {
+        display: none;
+      }
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .hero-visual {
+        order: -1;
+        max-width: 360px;
+        margin: 0 auto;
+      }
+      .hero h1 {
+        font-size: 2.1rem;
+      }
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 740px) {
+      :root {
+        --sticky-offset: 100px;
+        --header-height: 56px;
+        --announce-height: 44px;
+      }
+      .container {
+        padding: 0 16px;
+      }
+      .header-inner {
+        padding: 0 16px;
+        gap: 8px;
+      }
+      .nav-main {
+        display: none;
+      }
+      .search-box input {
+        width: 100px;
+      }
+      .hero {
+        padding: 32px 0 28px;
+      }
+      .hero h1 {
+        font-size: 1.65rem;
+      }
+      .hero-desc {
+        font-size: 0.9rem;
+      }
+      .main-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 32px 0 48px;
+      }
+      .sidebar-right {
+        position: static;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .deep-dive {
+        padding: 22px 18px;
+      }
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-primary, .btn-outline {
+        justify-content: center;
+      }
+      .announce-bar {
+        font-size: 0.75rem;
+        padding: 0 12px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .sidebar-right {
+        grid-template-columns: 1fr;
+      }
+      .category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* 焦点可见 */
+    a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶公告条 -->
+  <div class="announce-bar" role="status" aria-label="最新公告">
+    <span><span class="dot"></span>11 月 8 日更新：耐力骑乘赛秋季积分榜刷新 · 新增 6 条骑手训练档案</span>
+  </div>
+
+  <!-- 吸顶页头 -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/#hero" class="brand" aria-label="每日大赛主题大赛骑乘首页">
+        <span class="brand-icon" aria-hidden="true">骑</span>
+        <span class="brand-text">每日大赛主题大赛骑乘</span>
+      </a>
+      <nav class="nav-main" aria-label="主导航">
+        <a href="/#overview">赛事概览</a>
+        <a href="/#featured">精选推荐</a>
+        <a href="/#updates">最新动态</a>
+        <a href="/#categories">分类入口</a>
+        <a href="/#deep-dive">深度解析</a>
+        <a href="/#faq">常见问答</a>
+      </nav>
+      <div class="header-actions">
+        <div class="search-box" role="search">
+          <input type="search" id="searchInput" placeholder="搜索骑乘赛条目…" aria-label="搜索骑乘赛条目">
+          <button type="button" id="searchBtn" aria-label="搜索">⌕</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 首屏 -->
+  <section class="hero" id="hero">
+    <div class="container hero-content">
+      <div>
+        <h1>每日大赛主题大赛骑乘</h1>
+        <p class="hero-desc">聚合耐力骑乘赛、速度赛、马术技巧赛三大方向的赛程条目、骑手动态与装备解析。从 80 公里耐力赛到 1200 米速度赛，按类型和难度找到适合关注的骑乘赛事。</p>
+        <div class="hero-actions">
+          <a href="/#featured" class="btn-primary">查看精选骑乘条目 →</a>
+          <a href="/#updates" class="btn-outline">今日赛程动态</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg class="hero-svg" viewBox="0 0 440 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="220" cy="290" rx="180" ry="22" fill="#e8ddd3"/>
+          <path d="M90 260 Q130 180 190 160 L250 140 Q280 130 300 150 L320 180 Q330 210 310 240 L280 270 Q250 285 220 280 L150 275 Q110 270 90 260Z" fill="#c9b39e" stroke="#5c3d2e" stroke-width="2.5"/>
+          <path d="M190 160 Q210 100 240 85 Q265 75 280 95 L290 120 Q280 140 260 150 Z" fill="#8b6b55" stroke="#5c3d2e" stroke-width="2"/>
+          <circle cx="245" cy="82" r="14" fill="#b85e3a" stroke="#5c3d2e" stroke-width="2"/>
+          <path d="M255 78 L270 62 L278 66 L266 84 Z" fill="#5c3d2e"/>
+          <path d="M120 258 Q100 240 95 210 Q92 190 105 178" stroke="#5c3d2e" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M105 178 Q115 168 128 172" stroke="#5c3d2e" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <rect x="140" y="240" width="60" height="8" rx="4" fill="#b85e3a"/>
+          <rect x="260" y="250" width="50" height="6" rx="3" fill="#b85e3a"/>
+          <circle cx="160" cy="270" r="6" fill="#5c3d2e"/>
+          <circle cx="290" cy="268" r="6" fill="#5c3d2e"/>
+          <path d="M60 200 L85 195 M55 220 L80 215 M62 240 L88 236" stroke="#b85e3a" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M350 210 L380 200 M355 230 L385 222" stroke="#b85e3a" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="370" cy="170" r="6" fill="#f5d76e" opacity="0.7"/>
+          <circle cx="395" cy="150" r="4" fill="#f5d76e" opacity="0.5"/>
+          <circle cx="340" cy="140" r="5" fill="#f5d76e" opacity="0.6"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主内容区 三栏门户 -->
+  <div class="container main-layout">
+
+    <!-- 左频道索引 -->
+    <aside class="channel-sidebar" aria-label="频道索引">
+      <h2>频道索引</h2>
+      <ul class="channel-list">
+        <li><a href="/#overview"><span class="ch-icon">◈</span>赛事概览</a></li>
+        <li><a href="/#featured"><span class="ch-icon">★</span>精选推荐</a></li>
+        <li><a href="/#updates"><span class="ch-icon">◷</span>最新动态</a></li>
+        <li><a href="/#categories"><span class="ch-icon">▦</span>分类入口</a></li>
+        <li><a href="/#deep-dive"><span class="ch-icon">✎</span>深度解析</a></li>
+        <li><a href="/#experience"><span class="ch-icon">◎</span>体验指南</a></li>
+        <li><a href="/#faq"><span class="ch-icon">?</span>常见问答</a></li>
+        <li><a href="/#comments"><span class="ch-icon">☰</span>骑手评论</a></li>
+        <li><a href="/#news"><span class="ch-icon">✉</span>相关资讯</a></li>
+        <li><a href="/#related"><span class="ch-icon">↗</span>延伸推荐</a></li>
+        <li><a href="/#timeline"><span class="ch-icon">◫</span>赛季时间线</a></li>
+      </ul>
+    </aside>
+
+    <!-- 主内容 -->
+    <main class="content-main">
+
+      <!-- 1. 赛事概览 -->
+      <section class="section" id="overview">
+        <div class="section-header">
+          <h2>骑乘赛事与训练方向概览</h2>
+        </div>
+        <div class="overview-text">
+          <p>骑乘竞技覆盖的范畴比多数人预想的更宽。按比赛形式划分，主要有耐力骑乘赛、速度赛、马术技巧赛三大类。耐力骑乘赛以 FEI 规则下的 80 公里、120 公里和 160 公里级别为代表，考验骑手对马匹配速和补水节奏的把控；速度赛以 1000 米到 2400 米的距离为主，起跑反应和弯道切线是胜负关键；马术技巧赛则包含障碍超越、盛装舞步和绕桶赛，评判更侧重人马配合的精确度。</p>
+          <p>训练方向上，业余骑手通常从 40 公里耐力入门赛和 60 厘米障碍级别起步，逐步向 80 公里耐力赛或 90 厘米障碍赛过渡。装备选择方面，耐力 saddle 的鞍座面积和减震层厚度直接影响长途舒适性，速度赛则更看重鞍具的轻量化和贴合度。当前值得关注的条目包括 11 月 8 日刚结束的秋季耐力积分赛、本周六的绕桶赛公开组，以及新上线的骑手心率与马匹步频对照档案。</p>
+        </div>
+      </section>
+
+      <!-- 2. 精选内容推荐 -->
+      <section class="section" id="featured">
+        <div class="section-header">
+          <h2>精选骑乘赛条目</h2>
+          <span class="sub">11 月 8 日更新 · 共 8 条</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/naijiu-80km01/400/300" alt="80 公里耐力骑乘赛秋季积分站赛道" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-tag">耐力骑乘赛</span>
+              <h3>80 公里耐力赛秋季积分站</h3>
+              <div class="tag-row">
+                <span class="tag-sm">FEI 二星级</span>
+                <span class="tag-sm">配速策略</span>
+                <span class="tag-sm">马匹补水</span>
+              </div>
+              <p class="card-desc">全程设 3 个兽医检查点，第 2 检查点后的沙地路段是拉开差距的关键。骑手需在 4 小时 40 分内完成全程，平均速度控制在 17—19 km/h。</p>
+              <div class="card-meta">
+                <span class="hot">热度 9.2</span>
+                <span>更新于 11 月 8 日</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/sudu-1200m02/400/300" alt="1200 米速度赛直道冲刺" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-tag">速度赛</span>
+              <h3>1200 米速度赛公开组</h3>
+              <div class="tag-row">
+                <span class="tag-sm">起跑反应</span>
+                <span class="tag-sm">弯道切线</span>
+                <span class="tag-sm">轻量鞍具</span>
+              </div>
+              <p class="card-desc">沙地赛道，出闸后 200 米内抢位决定最终名次。前 3 名骑手均采用轻量化鞍具，平均负重控制在 52 公斤以下。</p>
+              <div class="card-meta">
+                <span class="hot">热度 8.7</span>
+                <span>11 月 7 日更新</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/raotong-03/400/300" alt="绕桶赛公开组骑手绕行三桶" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-tag">马术技巧赛</span>
+              <h3>绕桶赛公开组（三桶制）</h3>
+              <div class="tag-row">
+                <span class="tag-sm">回转半径</span>
+                <span class="tag-sm">桶间步频</span>
+                <span class="tag-sm">人马重心</span>
+              </div>
+              <p class="card-desc">标准三桶布局，桶间距 27 米。重点看第一桶的入弯角度和第三桶出弯后的加速衔接，优秀骑手全程用时在 16.5 秒以内。</p>
+              <div class="card-meta">
+                <span class="hot">热度 8.4</span>
+                <span>11 月 6 日更新</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/zhangai-90cm04/400/300" alt="90 厘米障碍赛骑手跨越横杆" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-tag">障碍超越</span>
+              <h3>90 厘米障碍赛新手组</h3>
+              <div class="tag-row">
+                <span class="tag-sm">步数计算</span>
+                <span class="tag-sm">起跳点</span>
+                <span class="tag-sm">障碍间距</span>
+              </div>
+              <p class="card-desc">8 道障碍，最长间距 18 米。新手组评判重点是起跳点的一致性，而非单纯追求速度。前 5 名中有 4 位骑手全程起跳点误差在 30 厘米内。</p>
+              <div class="card-meta">
+                <span class="hot">热度 8.1</span>
+                <span>11 月 5 日更新</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/naijiu-120km05/400/300" alt="120 公里耐力赛夜间赛段照明" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-tag">耐力骑乘赛</span>
+              <h3>120 公里耐力赛夜间赛段解析</h3>
+              <div class="tag-row">
+                <span class="tag-sm">夜间照明</span>
+                <span class="tag-sm">马匹视野</span>
+                <span class="tag-sm">配速降幅</span>
+              </div>
+              <p class="card-desc">夜间赛段占全程 35%，照明条件影响马匹步频稳定性。数据显示有经验的骑手会将夜间配速下调 8%—12%，以换取后半程的体力储备。</p>
+              <div class="card-meta">
+                <span class="hot">热度 7.9</span>
+                <span>11 月 4 日更新</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/shengzhuang-06/400/300" alt="盛装舞步中级科目骑手侧影" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-tag">盛装舞步</span>
+              <h3>盛装舞步中级科目（测试 3）</h3>
+              <div class="tag-row">
+                <span class="tag-sm">步幅伸长</span>
+                <span class="tag-sm">收缩平衡</span>
+                <span class="tag-sm">对角线</span>
+              </div>
+              <p class="card-desc">包含 22 个规定动作，重点观察慢步伸长和快步收缩两个过渡段。裁判评分中“人马和谐”占 40% 权重，动作路线准确度占 30%。</p>
+              <div class="card-meta">
+                <span class="hot">热度 7.6</span>
+                <span>11 月 3 日更新</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/zhangai-110cm07/400/300" alt="110 厘米障碍赛组合障碍" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-tag">障碍超越</span>
+              <h3>110 厘米障碍赛进阶组</h3>
+              <div class="tag-row">
+                <span class="tag-sm">组合障碍</span>
+                <span class="tag-sm">回转路线</span>
+                <span class="tag-sm">马匹后驱</span>
+              </div>
+              <p class="card-desc">含一道双重组合障碍和一道三重组合障碍，间距分别为 7.5 米和 3.6 米。骑手需在进入组合前完成步数调整，否则容易出现打杆或拒跳。</p>
+              <div class="card-meta">
+                <span class="hot">热度 7.3</span>
+                <span>11 月 2 日更新</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/maoxian-08/400/300" alt="骑手与马匹越野骑乘装备" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-tag">装备解析</span>
+              <h3>耐力鞍 vs 速度鞍：减震与重量对照</h3>
+              <div class="tag-row">
+                <span class="tag-sm">鞍座面积</span>
+                <span class="tag-sm">减震层</span>
+                <span class="tag-sm">整鞍重量</span>
+              </div>
+              <p class="card-desc">耐力鞍平均鞍座面积比速度鞍大 35%，减震层厚度多 12—18 毫米。速度鞍整鞍重量普遍控制在 3.2 公斤以下，适合短途冲刺场景。</p>
+              <div class="card-meta">
+                <span class="hot">热度 7.0</span>
+                <span>11 月 1 日更新</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3. 最新动态 -->
+      <section class="section" id="updates">
+        <div class="section-header">
+          <h2>最新赛程与骑手动态</h2>
+          <span class="sub">11 月 8 日 09:30 更新</span>
+        </div>
+        <div class="news-list">
+          <div class="news-item">
+            <span class="news-time">今天 09:30</span>
+            <div class="news-content">
+              <div class="news-title">秋季耐力积分赛第 5 站成绩公布</div>
+              <div class="news-summary">80 公里组冠军用时 4 小时 21 分，骑手“陈岭”与马匹“疾风”组合积分升至年度第 2。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-time">今天 08:15</span>
+            <div class="news-content">
+              <div class="news-title">今晚 20:00 绕桶赛公开组抽签直播</div>
+              <div class="news-summary">16 位骑手参与抽签，出场顺序将影响赛道适应时间，第一轮抽签结果今晚公布。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-time">昨天 21:10</span>
+            <div class="news-content">
+              <div class="news-title">120 公里耐力赛夜间赛段照明方案更新</div>
+              <div class="news-summary">主办方将第 3 检查点至第 4 检查点之间增加 6 组移动照明，改善夜间可视距离约 40 米。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-time">昨天 16:45</span>
+            <div class="news-content">
+              <div class="news-title">速度赛公开组报名截止，共 22 骑手确认</div>
+              <div class="news-summary">1200 米组别满员，1000 米组别剩余 3 个名额，11 月 9 日 12:00 关闭补录通道。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-time">11 月 7 日</span>
+            <div class="news-content">
+              <div class="news-title">90 厘米障碍赛新手组新增 4 位骑手</div>
+              <div class="news-summary">本组参赛人数达到 18 人，比赛将分两轮进行，第一轮前 10 名进入第二轮。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-time">11 月 7 日</span>
+            <div class="news-content">
+              <div class="news-title">骑手训练档案上新：步频与心率对照表</div>
+              <div class="news-summary">新增 6 条训练记录，涵盖 3 种马匹品种在不同配速下的步频和心率变化曲线。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-time">11 月 6 日</span>
+            <div class="news-content">
+              <div class="news-title">盛装舞步中级科目裁判名单确认</div>
+              <div class="news-summary">3 位裁判中有 2 位具备 FEI 三星级资质，评分细则在赛前技术会上公布。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-time">11 月 5 日</span>
+            <div class="news-content">
+              <div class="news-title">110 厘米障碍赛路线图发布</div>
+              <div class="news-summary">共 10 道障碍，含 1 道双重组合和 1 道三重组合，路线长度 420 米，允许时间 68 秒。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-time">11 月 4 日</span>
+            <div class="news-content">
+              <div class="news-title">耐力赛兽医检查标准更新</div>
+              <div class="news-summary">第 2 检查点新增马匹脱水指数检测，通过标准从 3 级收紧至 2 级，未通过者强制休停 20 分钟。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-time">11 月 3 日</span>
+            <div class="news-content">
+              <div class="news-title">速度赛骑手负重抽查结果公示</div>
+              <div class="news-summary">22 位骑手中有 3 位负重低于 52 公斤下限，已要求加配重至合规范围后重新称重。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. 分类入口 -->
+      <section class="section" id="categories">
+        <div class="section-header">
+          <h2>按骑乘类型查找</h2>
+          <span class="sub">8 个分类方向</span>
+        </div>
+        <div class="category-grid">
+          <a href="/#featured" class="category-item">
+            <span class="cat-icon" aria-hidden="true">🏇</span>
+            <span class="cat-name">耐力骑乘赛</span>
+            <div class="cat-count">80/120/160 公里</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <span class="cat-icon" aria-hidden="true">⚡</span>
+            <span class="cat-name">速度赛</span>
+            <div class="cat-count">1000—2400 米</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <span class="cat-icon" aria-hidden="true">🎯</span>
+            <span class="cat-name">障碍超越</span>
+            <div class="cat-count">60—110 厘米</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <span class="cat-icon" aria-hidden="true">🌀</span>
+            <span class="cat-name">绕桶赛</span>
+            <div class="cat-count">三桶制 / 四桶制</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <span class="cat-icon" aria-hidden="true">🎼</span>
+            <span class="cat-name">盛装舞步</span>
+            <div class="cat-count">初级—中级科目</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <span class="cat-icon" aria-hidden="true">🧰</span>
+            <span class="cat-name">骑乘装备</span>
+            <div class="cat-count">鞍具 / 护具 / 蹄铁</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <span class="cat-icon" aria-hidden="true">📈</span>
+            <span class="cat-name">训练方法</span>
+            <div class="cat-count">步频 / 心率 / 配速</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <span class="cat-icon" aria-hidden="true">📋</span>
+            <span class="cat-name">赛事规则</span>
+            <div class="cat-count">FEI / 本地规则</div>
+          </a>
+        </div>
+      </section>
+
+      <!-- 5. 深度解析 -->
+      <section class="section" id="deep-dive">
+        <div class="deep-dive">
+          <h2>耐力骑乘赛与速度赛：训练重点与判罚逻辑差异</h2>
+
+          <h3>耐力骑乘赛的配速分层与兽医检查节奏</h3>
+          <p>80 公里耐力骑乘赛通常分为 3—4 个赛段，每个赛段结束后设置兽医检查点。以秋季积分站为例，第 1 赛段 30 公里，第 2 赛段 25 公里，第 3 赛段 25 公里。骑手在第一赛段容易因为马匹兴奋而配速过快，导致第 2 检查点心率恢复不达标。有经验的骑手会把第一赛段平均速度控制在 18—19 km/h，留出 5—8 分钟的兽医检查缓冲时间。</p>
+          <p>兽医检查的核心指标包括心率、脱水指数和步态对称性。心率在检查点后 20 分钟内降到 64 次/分以下为合格，脱水指数 2 级以下方可继续比赛。这些硬性指标直接决定了配速策略——与其在某个赛段冲快 2 分钟，不如确保每个检查点一次通过。</p>
+
+          <h3>速度赛的起跑反应与弯道切线计算</h3>
+          <p>1200 米速度赛的胜负往往在出闸后的前 200 米就已奠定。闸位靠内的骑手有更短的切线距离，但也要面对更密集的竞争。实际比赛中，第 3—5 闸位反而胜率较高，因为既有内线优势，又避免了最内侧的拥挤。弯道阶段，骑手需要提前 80—100 米开始向外偏移，为直道冲刺保留加速空间。</p>
+          <p>负重是另一个关键变量。公开组要求骑手负重不低于 52 公斤，部分轻量骑手需要加配重铅块。铅块的放置位置会影响马匹重心，通常建议放在鞍座前桥两侧，避免在高速弯道中产生额外摆动。</p>
+
+          <h3>两类赛事对装备的选择逻辑</h3>
+          <p>耐力骑乘赛和速度赛对鞍具的需求几乎相反。耐力鞍追求舒适和减震，鞍座面积大、填充厚，整鞍重量通常在 6—8 公斤。速度鞍追求轻量和贴合，整鞍重量可低至 2.8 公斤，但减震层薄，长途骑乘容易造成马匹背部疲劳。</p>
+          <ul>
+            <li><strong>耐力赛装备优先级：</strong>鞍座减震 > 鞍包容量 > 整鞍重量 > 外观材质</li>
+            <li><strong>速度赛装备优先级：</strong>整鞍重量 > 鞍座贴合度 > 前桥支撑 > 减震层</li>
+            <li><strong>共同必备项：</strong>蹄铁防滑处理、护腿、骑手安全背心</li>
+          </ul>
+
+          <h3>新手从哪类赛事开始：40 公里耐力 vs 60 厘米障碍</h3>
+          <p>如果目标是长距离骑乘，40 公里耐力入门赛是更平滑的起点，兽医检查标准相对宽松，赛段间隔也更适合积累配速经验。如果更看重人马配合的精确度，60 厘米障碍赛新手组能更快建立起跳点和步数计算的感觉。两类赛事对基本功的要求不同，但都建议先完成至少 3 个月的规律训练再报名参赛。</p>
+        </div>
+      </section>
+
+      <!-- 6. 体验指南 -->
+      <section class="section" id="experience">
+        <div class="section-header">
+          <h2>骑乘赛事观看与参与路径</h2>
+        </div>
+        <div class="overview-text">
+          <p><strong>第一步：按距离和级别筛选。</strong>耐力赛从 40 公里入门组开始看，速度赛从 1000 米公开组入手，障碍赛优先关注 60—90 厘米级别。级别越低，骑手的动作细节越容易观察，也更容易理解判罚逻辑。</p>
+          <p><strong>第二步：判断一个条目是否值得投入时间。</strong>先看兽医检查通过率——通过率高的场次通常代表骑手配速策略更成熟；再看前 3 名与第 4 名的完赛时间差，差距在 2 分钟以内的耐力赛往往竞争更激烈。速度赛则看起跑反应时间和弯道切线是否干净。</p>
+          <p><strong>第三步：同类赛事横向比较。</strong>同样是 80 公里耐力赛，沙地赛道和草泥混合赛道的平均配速差异可达 1.5 km/h。比较时先对齐赛道类型，再对比兽医检查点数量和通过标准，最后看骑手与马匹的组合经验。</p>
+          <p><strong>第四步：装备与训练的延伸阅读。</strong>看完比赛后，对照鞍具类型和训练档案中的步频数据，能更具体地理解骑手在某个赛段为什么做出那样的配速选择。训练档案中的心率曲线和步频对照，是判断马匹状态最直接的参考。</p>
+        </div>
+      </section>
+
+      <!-- 7. FAQ -->
+      <section class="section" id="faq">
+        <div class="section-header">
+          <h2>骑乘赛常见问题</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>80 公里耐力骑乘赛一般多久举办一次？</summary>
+            <div class="faq-answer">国内常规耐力赛站通常每 4—6 周举办一站，秋季积分赛从 9 月持续到 11 月，共 5—6 站。国际 FEI 二星级以上赛事间隔更长，部分区域一年 2—3 场。</div>
+          </details>
+          <details class="faq-item">
+            <summary>速度赛和耐力赛的判罚标准有什么区别？</summary>
+            <div class="faq-answer">速度赛主要判罚起跑违规、弯道阻挡和负重不达标，判罚以罚时或取消名次为主。耐力赛的判罚围绕兽医检查展开，心率恢复不达标或脱水指数超标会被强制休停，严重者直接淘汰。</div>
+          </details>
+          <details class="faq-item">
+            <summary>第一次看骑乘比赛，从哪个条目开始比较好？</summary>
+            <div class="faq-answer">建议从 60 厘米障碍赛新手组或 40 公里耐力入门赛开始。障碍赛动作路线清晰，容易看清起跳点和步数；耐力赛节奏分明，兽医检查点的设置让比赛进程一目了然。</div>
+          </details>
+          <details class="faq-item">
+            <summary>耐力鞍和速度鞍能通用吗？</summary>
+            <div class="faq-answer">短途休闲骑乘可以临时通用，但正式比赛不建议。耐力鞍重量大、减震厚，速度赛中使用会影响加速效率；速度鞍减震层薄，80 公里以上骑乘容易造成马匹背部压迫。</div>
+          </details>
+          <details class="faq-item">
+            <summary>绕桶赛三桶制和四桶制有什么区别？</summary>
+            <div class="faq-answer">三桶制是标准布局，桶间距 27 米左右，总路线呈三角形；四桶制增加一道回旋，路线更复杂，对骑手回转控制要求更高。两者计时方式相同，但四桶制平均用时多 2—3 秒。</div>
+          </details>
+          <details class="faq-item">
+            <summary>骑手训练档案中的步频数据怎么参考？</summary>
+            <div class="faq-answer">步频数据主要用来对照马匹在不同配速下的状态。例如慢步 60—70 步/分，快步 110—130 步/分，跑步 140—160 步/分。训练时记录心率和步频的对应关系，比赛时就能更快判断马匹是否进入疲劳区间。</div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 8. 用户评论 -->
+      <section class="section" id="comments">
+        <div class="section-header">
+          <h2>骑手与观众评论</h2>
+          <span class="sub">16 条 · 截至 11 月 8 日</span>
+        </div>
+        <div class="comment-list">
+          <div class="comment-item">
+            <div class="comment-avatar">林</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">林间骑手</span><span class="comment-date">11 月 8 日</span></div>
+              <div class="comment-text">秋季积分站第 2 检查点的沙地路段确实难，我家马匹在那里掉了大概 40 秒，回来看数据发现配速还是偏快了。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">陈</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">陈岭</span><span class="comment-date">11 月 8 日</span></div>
+              <div class="comment-text">80 公里组的兽医检查标准收紧后，前 30 公里真的不能冲太猛，心率恢复时间比以前更紧张。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">赵</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">赵小满</span><span class="comment-date">11 月 7 日</span></div>
+              <div class="comment-text">绕桶赛三桶制的入弯角度太关键了，我练了三个月还是会在第一桶损失时间，看了路线分析才明白重心要提前移。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">王</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">王野</span><span class="comment-date">11 月 7 日</span></div>
+              <div class="comment-text">速度赛 1200 米组第 4 号闸位确实有优势，内线切线短但又不至于最挤，这次前三名有两个是从 4 号闸出来的。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">孙</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">孙教练</span><span class="comment-date">11 月 6 日</span></div>
+              <div class="comment-text">90 厘米障碍赛新手组重点看起跳点一致性，速度反而其次。判罚尺度对新手比较友好，打杆只罚时间不淘汰。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">周</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">周雨桐</span><span class="comment-date">11 月 6 日</span></div>
+              <div class="comment-text">盛装舞步中级科目测试 3 的对角线过渡段太难了，慢步伸长和快步收缩之间的衔接需要非常稳的缰绳手感。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">吴</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">吴远</span><span class="comment-date">11 月 5 日</span></div>
+              <div class="comment-text">耐力鞍和速度鞍的对比很实在，我两种都用过，速度鞍跑 40 公里以上确实背部压力大，减震层差距明显。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">郑</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">郑一诺</span><span class="comment-date">11 月 5 日</span></div>
+              <div class="comment-text">120 公里夜间赛段的照明调整是好事，去年那场第 3 检查点后面几乎看不清路，马匹明显犹豫。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">黄</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">黄河</span><span class="comment-date">11 月 4 日</span></div>
+              <div class="comment-text">110 厘米进阶组的双重组合障碍间距 7.5 米，对步幅要求很精确，我看直播时有两匹马直接拒跳了。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">李</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">李青</span><span class="comment-date">11 月 4 日</span></div>
+              <div class="comment-text">训练档案里的步频心率对照表很实用，我照着自己的马匹品种找了参考区间，调整了慢步的训练节奏。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">徐</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">徐鸣</span><span class="comment-date">11 月 3 日</span></div>
+              <div class="comment-text">速度赛负重抽查加配重这个规定执行得挺严，轻量骑手确实需要更注意铅块放置位置，不然高速弯道会晃。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">何</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">何曼</span><span class="comment-date">11 月 3 日</span></div>
+              <div class="comment-text">第一次看绕桶赛觉得就是跑圈，后来仔细看回转半径和步频变化，才发现每个桶之间的节奏完全不一样。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">高</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">高远</span><span class="comment-date">11 月 2 日</span></div>
+              <div class="comment-text">耐力赛第 2 检查点脱水指数收紧到 2 级后，强制休停的骑手明显变多了，配速策略比去年更保守。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">马</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">马小飞</span><span class="comment-date">11 月 2 日</span></div>
+              <div class="comment-text">60 厘米障碍新手组确实适合入门，起跳点看得很清楚，打杆了也只是罚时间，压力不大。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">罗</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">罗一舟</span><span class="comment-date">11 月 1 日</span></div>
+              <div class="comment-text">盛装舞步裁判评分里“人马和谐”占 40% 这个信息很有用，之前一直以为动作路线准确度权重最高。</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">谢</div>
+            <div class="comment-body">
+              <div class="comment-head"><span class="comment-name">谢云</span><span class="comment-date">11 月 1 日</span></div>
+              <div class="comment-text">耐力赛第一赛段控制在 18—19 km/h 这个建议很具体，下次训练就按这个配速试试，之前总是开头太快。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. 相关资讯 -->
+      <section class="section" id="news">
+        <div class="section-header">
+          <h2>骑乘赛事相关资讯</h2>
+        </div>
+        <div class="news-grid">
+          <article class="news-card">
+            <div class="nc-date">2026-11-08</div>
+            <h3>秋季耐力积分赛第 5 站完赛，积分榜前 3 名差距缩小至 12 分</h3>
+            <p>80 公里组前 5 名中有 3 位骑手刷新个人赛季最好成绩，兽医检查一次通过率达到 82%。</p>
+          </article>
+          <article class="news-card">
+            <div class="nc-date">2026-11-07</div>
+            <h3>绕桶赛公开组抽签今晚进行，16 位骑手出场顺序待定</h3>
+            <p>抽签结果将决定第一轮赛道适应时间，往届数据显示第 6—10 位出场的骑手平均成绩更好。</p>
+          </article>
+          <article class="news-card">
+            <div class="nc-date">2026-11-05</div>
+            <h3>120 公里耐力赛夜间赛段新增 6 组移动照明</h3>
+            <p>第 3 检查点至第 4 检查点之间可视距离提升约 40 米，马匹步频稳定性预计改善。</p>
+          </article>
+          <article class="news-card">
+            <div class="nc-date">2026-11-04</div>
+            <h3>耐力赛兽医检查标准收紧：脱水指数通过线从 3 级调至 2 级</h3>
+            <p>第 2 检查点起实施新标准，未通过的骑手强制休停 20 分钟，季末积分赛全面适用。</p>
+          </article>
+          <article class="news-card">
+            <div class="nc-date">2026-11-02</div>
+            <h3>110 厘米障碍赛路线图公布：含 1 道双重组合和 1 道三重组合</h3>
+            <p>路线长度 420 米，允许时间 68 秒，组合障碍间距分别为 7.5 米和 3.6 米。</p>
+          </article>
+          <article class="news-card">
+            <div class="nc-date">2026-10-30</div>
+            <h3>速度赛公开组报名满员，1000 米组剩余 3 个补录名额</h3>
+            <p>22 位骑手确认参赛，补录通道 11 月 9 日 12:00 关闭，负重抽查将在赛前 1 小时进行。</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 10. 相关推荐 -->
+      <section class="section" id="related">
+        <div class="section-header">
+          <h2>延伸方向与关联条目</h2>
+        </div>
+        <div class="related-tags">
+          <a href="/#featured" class="related-tag">40 公里耐力入门赛配速表</a>
+          <a href="/#featured" class="related-tag">速度赛闸位胜率统计</a>
+          <a href="/#featured" class="related-tag">绕桶赛第一桶入弯角度</a>
+          <a href="/#featured" class="related-tag">耐力鞍减震层厚度对照</a>
+          <a href="/#featured" class="related-tag">盛装舞步对角线过渡训练</a>
+          <a href="/#featured" class="related-tag">马匹步频与心率对照档案</a>
+          <a href="/#featured" class="related-tag">障碍赛组合步数计算</a>
+          <a href="/#featured" class="related-tag">FEI 耐力赛兽医检查规则</a>
+        </div>
+      </section>
+
+      <!-- 11. 赛季时间线 -->
+      <section class="section" id="timeline">
+        <div class="section-header">
+          <h2>2026 秋季骑乘赛季时间线</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="timeline-date">11 月 8 日</span>
+            <div class="timeline-content"><strong>耐力积分赛第 5 站</strong> · 80 公里组完赛，积分榜前 3 名差距缩小至 12 分</div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-date">11 月 9 日</span>
+            <div class="timeline-content"><strong>绕桶赛公开组</strong> · 16 位骑手参赛，抽签今晚公布出场顺序</div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-date">11 月 14 日</span>
+            <div class="timeline-content"><strong>速度赛公开组</strong> · 1200 米组正赛，1000 米组补录截止后确认最终名单</div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-date">11 月 20 日</span>
+            <div class="timeline-content"><strong>90 厘米障碍新手组</strong> · 分两轮进行，第一轮前 10 名进入第二轮</div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-date">11 月 28 日</span>
+            <div class="timeline-content"><strong>120 公里耐力赛</strong> · 夜间赛段启用新照明方案，兽医检查按收紧后标准执行</div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-date">12 月 5 日</span>
+            <div class="timeline-content"><strong>秋季积分赛总决赛</strong> · 80/120 公里组年度积分前 20 名骑手获得参赛资格</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 右侧辅助栏 -->
+    <aside class="sidebar-right">
+      <div class="side-card">
+        <h3>骑手热度榜 <span class="badge">11 月 8 日</span></h3>
+        <ul class="rank-list">
+          <li><span class="rank-num">1</span><span class="rank-name">陈岭 · 疾风</span><span class="rank-meta">耐力赛</span></li>
+          <li><span class="rank-num">2</span><span class="rank-name">赵小满 · 闪电</span><span class="rank-meta">绕桶赛</span></li>
+          <li><span class="rank-num">3</span><span class="rank-name">王野 · 追日</span><span class="rank-meta">速度赛</span></li>
+          <li><span class="rank-num">4</span><span class="rank-name">周雨桐 · 云锦</span><span class="rank-meta">盛装舞步</span></li>
+          <li><span class="rank-num">5</span><span class="rank-name">林间骑手 · 松风</span><span class="rank-meta">耐力赛</span></li>
+          <li><span class="rank-num">6</span><span class="rank-name">孙教练 · 黑曜</span><span class="rank-meta">障碍赛</span></li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <h3>最近更新</h3>
+        <ul class="update-stream">
+          <li>
+            <span class="upd-title">80 公里耐力赛检查点数据</span>
+            <span class="upd-time">今天 09:30 · 新增 8 条</span>
+          </li>
+          <li>
+            <span class="upd-title">绕桶赛抽签结果</span>
+            <span class="upd-time">今天 08:15 · 待更新</span>
+          </li>
+          <li>
+            <span class="upd-title">夜间赛段照明方案</span>
+            <span class="upd-time">昨天 21:10 · 已更新</span>
+          </li>
+          <li>
+            <span class="upd-title">速度赛负重抽查名单</span>
+            <span class="upd-time">11 月 7 日 · 新增 3 条</span>
+          </li>
+          <li>
+            <span class="upd-title">训练档案步频对照表</span>
+            <span class="upd-time">11 月 7 日 · 新增 6 条</span>
+          </li>
+          <li>
+            <span class="upd-title">110 厘米障碍路线图</span>
+            <span class="upd-time">11 月 5 日 · 已发布</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <h3>本周关键词</h3>
+        <div class="tag-row" style="gap:8px;">
+          <span class="tag-sm">80 公里耐力赛</span>
+          <span class="tag-sm">绕桶三桶制</span>
+          <span class="tag-sm">夜间赛段照明</span>
+          <span class="tag-sm">兽医检查标准</span>
+          <span class="tag-sm">速度赛闸位</span>
+          <span class="tag-sm">耐力鞍减震</span>
+          <span class="tag-sm">组合障碍间距</span>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- 页尾 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <span class="brand-icon" aria-hidden="true">骑</span>
+            <span class="brand-text">每日大赛主题大赛骑乘</span>
+          </div>
+          <p class="footer-desc">聚合耐力骑乘赛、速度赛、马术技巧赛的赛程条目与骑手动态，提供配速策略、装备对照和训练档案参考。</p>
+        </div>
+        <div class="footer-col">
+          <h4>赛事类型</h4>
+          <ul>
+            <li><a href="/#featured">80 公里耐力赛</a></li>
+            <li><a href="/#featured">1200 米速度赛</a></li>
+            <li><a href="/#featured">绕桶赛三桶制</a></li>
+            <li><a href="/#featured">90 厘米障碍赛</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>装备与训练</h4>
+          <ul>
+            <li><a href="/#featured">耐力鞍 vs 速度鞍</a></li>
+            <li><a href="/#featured">步频心率对照</a></li>
+            <li><a href="/#deep-dive">配速分层策略</a></li>
+            <li><a href="/#experience">新手入门路径</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>规则与动态</h4>
+          <ul>
+            <li><a href="/#news">兽医检查标准</a></li>
+            <li><a href="/#updates">最新赛程</a></li>
+            <li><a href="/#faq">常见问答</a></li>
+            <li><a href="/#timeline">赛季时间线</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 每日大赛主题大赛骑乘 · 内容聚合示例</span>
+        <span>部分内容为示例数据，仅用于展示页面结构</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // 搜索框本地筛选：对主内容区中卡片和新闻条目进行简单可见性过滤
+      const searchInput = document.getElementById('searchInput');
+      const searchBtn = document.getElementById('searchBtn');
+
+      function performSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        const cards = document.querySelectorAll('.card');
+        const newsItems = document.querySelectorAll('.news-item');
+        const newsCards = document.querySelectorAll('.news-card');
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        const allItems = [...cards, ...newsItems, ...newsCards, ...faqItems];
+
+        if (!query) {
+          allItems.forEach(el => el.style.display = '');
+          return;
+        }
+
+        let visibleCount = 0;
+
+        allItems.forEach(el => {
+          const text = el.textContent.toLowerCase();
+          if (text.includes(query)) {
+            el.style.display = '';
+            visibleCount++;
+          } else {
+            el.style.display = 'none';
+          }
+        });
+
+        // 无结果反馈
+        let noResultEl = document.getElementById('searchNoResult');
+        if (visibleCount === 0) {
+          if (!noResultEl) {
+            noResultEl = document.createElement('div');
+            noResultEl.id = 'searchNoResult';
+            noResultEl.style.cssText = 'padding:24px 20px;text-align:center;color:#6e6259;font-size:0.9rem;background:#fff;border-radius:14px;border:1px solid #e2d9d0;margin-bottom:32px;';
+            noResultEl.textContent = '没有找到匹配的骑乘赛条目，试试“耐力赛”“绕桶”“障碍”或“速度赛”。';
+            const mainContent = document.querySelector('.content-main');
+            mainContent.insertBefore(noResultEl, mainContent.firstChild);
+          }
+        } else {
+          if (noResultEl) noResultEl.remove();
+        }
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', performSearch);
+      }
+      if (searchBtn) {
+        searchBtn.addEventListener('click', performSearch);
+      }
+    })();
+  </script>
+
+</body>
+              </html>
