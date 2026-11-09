@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>今日大赛在线观看 - 赛程直播与项目解析</title>
+<meta name="description" content="今日大赛在线观看聚合电竞赛事直播入口、今日赛程、热门项目对阵与赛后回放解析，覆盖英雄联盟、DOTA2、无畏契约和CS2等大赛项目，适合关注赛事动态与观赛安排的玩家浏览。">
+<meta name="keywords" content="电竞赛程直播,英雄联盟赛事,无畏契约赛程,赛事回放解析,大赛对阵表">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23111827'/%3E%3Cpath d='M24 66 L50 26 L76 66 Z' fill='none' stroke='%23f97316' stroke-width='8' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='56' r='7' fill='%23facc15'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0c0f16;
+  --bg-soft:#111827;
+  --panel:#161d2b;
+  --panel-2:#1b2435;
+  --line:#263247;
+  --text:#e8edf6;
+  --muted:#9aa7bd;
+  --muted-2:#74839b;
+  --brand:#f97316;
+  --brand-soft:#fb923c;
+  --accent:#22d3ee;
+  --accent-2:#a78bfa;
+  --green:#34d399;
+  --radius:14px;
+  --radius-sm:10px;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --header-h:64px;
+  --notice-h:40px;
+  --font:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--notice-h) + var(--header-h) + 14px)}
+body{margin:0;background:linear-gradient(180deg,#0b0e14 0%,#0c0f16 100%);color:var(--text);font-family:var(--font);line-height:1.65;font-size:15px}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{width:min(1360px,calc(100% - 32px));margin:0 auto}
+
+/* sticky stack */
+.sticky-top{position:sticky;top:0;z-index:50}
+.notice-bar{height:var(--notice-h);display:flex;align-items:center;background:linear-gradient(90deg,#3b1d07,#1f2937);border-bottom:1px solid #3a2a1a;font-size:13px;overflow:hidden}
+.notice-inner{width:min(1360px,calc(100% - 32px));margin:0 auto;display:flex;align-items:center;gap:10px;white-space:nowrap;overflow:hidden}
+.notice-tag{background:var(--brand);color:#111;font-weight:700;padding:2px 8px;border-radius:6px;font-size:12px;flex:none}
+.notice-text{color:#f8d7b8;overflow:hidden;text-overflow:ellipsis}
+.notice-text b{color:#fff}
+
+.site-header{height:var(--header-h);background:rgba(12,15,22,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.header-inner{width:min(1360px,calc(100% - 32px));margin:0 auto;height:100%;display:flex;align-items:center;gap:24px}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand svg{width:34px;height:34px;flex:none}
+.brand-text{font-weight:800;font-size:18px;letter-spacing:.5px}
+.main-nav{display:flex;gap:4px;flex-wrap:wrap;overflow:auto;scrollbar-width:none}
+.main-nav::-webkit-scrollbar{display:none}
+.main-nav a{padding:7px 11px;border-radius:8px;color:var(--muted);font-size:14px;white-space:nowrap}
+.main-nav a:hover{color:#fff;background:#1a2233}
+.header-search{margin-left:auto;display:flex;align-items:center;gap:6px;flex:none}
+.header-search input{background:#0f1520;border:1px solid var(--line);border-radius:8px;color:var(--text);padding:7px 10px;font-size:13px;width:150px}
+.header-search input::placeholder{color:var(--muted-2)}
+.header-search button{background:var(--brand);border:0;color:#111;padding:7px 12px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
+.search-feedback{position:absolute;top:calc(var(--notice-h) + var(--header-h) + 6px);right:16px;background:#1c2536;border:1px solid var(--line);padding:8px 12px;border-radius:8px;font-size:13px;color:var(--accent);display:none;z-index:60;box-shadow:var(--shadow)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(900px 380px at 75% 0%,rgba(249,115,22,.16),transparent 60%),radial-gradient(700px 300px at 15% 100%,rgba(34,211,238,.1),transparent 60%)}
+.hero-inner{width:min(1360px,calc(100% - 32px));margin:0 auto;display:grid;grid-template-columns:1.25fr .75fr;gap:36px;padding:46px 0 42px;align-items:center}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;color:var(--brand-soft);font-size:13px;font-weight:700;letter-spacing:1px}
+.hero-kicker::before{content:"";width:22px;height:2px;background:var(--brand)}
+.hero h1{font-size:clamp(30px,4vw,46px);line-height:1.2;margin:12px 0 14px;letter-spacing:1px}
+.hero p{color:var(--muted);max-width:620px;margin:0 0 22px;font-size:15.5px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;font-weight:700;font-size:14px;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--brand),#ea580c);color:#141414}
+.btn-ghost{border-color:var(--line);color:var(--text);background:#131a27}
+.hero-meta{display:flex;gap:22px;margin-top:24px;flex-wrap:wrap}
+.hero-meta div{font-size:13px;color:var(--muted)}
+.hero-meta b{display:block;color:#fff;font-size:20px;font-weight:800}
+.hero-visual{position:relative;min-height:250px}
+.hero-visual svg{width:100%;height:auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,.45))}
+
+/* layout */
+.layout{display:grid;grid-template-columns:190px minmax(0,1fr) 300px;gap:26px;padding:32px 0 48px;align-items:start}
+.channel-nav{position:sticky;top:calc(var(--notice-h) + var(--header-h) + 16px);background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 10px}
+.channel-nav h2{font-size:12px;letter-spacing:2px;color:var(--muted-2);margin:4px 8px 10px;font-weight:700}
+.channel-nav a{display:flex;align-items:center;justify-content:space-between;padding:9px 10px;border-radius:8px;color:var(--muted);font-size:14px}
+.channel-nav a span{font-size:11px;color:var(--muted-2)}
+.channel-nav a:hover,.channel-nav a.active{background:#1d2739;color:#fff}
+.channel-nav a.active{border-left:3px solid var(--brand)}
+
+.main-col{min-width:0;display:flex;flex-direction:column;gap:30px}
+.side-col{position:sticky;top:calc(var(--notice-h) + var(--header-h) + 16px);display:flex;flex-direction:column;gap:20px}
+
+.section{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px;scroll-margin-top:calc(var(--notice-h) + var(--header-h) + 14px)}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:16px}
+.section-head h2{font-size:20px;margin:0;line-height:1.3}
+.section-head h2 small{display:block;font-size:12px;color:var(--muted-2);font-weight:400;margin-top:4px;letter-spacing:0}
+.section-head .more{font-size:12.5px;color:var(--brand-soft);white-space:nowrap}
+.lead{color:var(--muted);font-size:14.5px}
+
+/* overview */
+.overview p{margin:0 0 12px;color:#c4cee0;font-size:14.5px}
+.overview .keyline{color:var(--accent);font-weight:600}
+
+/* cards */
+.card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);border-color:#3a4b66}
+.card-cover{position:relative;aspect-ratio:4/3;overflow:hidden;background:#0f1520}
+.card-cover img{width:100%;height:100%;object-fit:cover}
+.card-cover .type{position:absolute;top:8px;left:8px;background:rgba(12,15,22,.85);border:1px solid #3a4b66;color:var(--accent);font-size:11px;padding:2px 7px;border-radius:6px}
+.card-body{padding:11px 12px 12px;display:flex;flex-direction:column;gap:7px;flex:1}
+.card-body h3{font-size:14.5px;margin:0;line-height:1.4}
+.card-body p{font-size:12.5px;color:var(--muted);margin:0;line-height:1.55}
+.tags{display:flex;gap:5px;flex-wrap:wrap}
+.tags span{font-size:11px;color:var(--muted);background:#111a28;border:1px solid #263247;border-radius:5px;padding:1px 6px}
+.card-foot{display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--muted-2);margin-top:auto;padding-top:6px}
+.card-foot b{color:var(--brand-soft);font-weight:700}
+
+/* list */
+.update-list{display:flex;flex-direction:column;gap:0}
+.update-item{display:flex;gap:12px;padding:11px 2px;border-bottom:1px dashed #263247;align-items:flex-start}
+.update-item:last-child{border-bottom:0}
+.update-time{flex:none;width:56px;font-size:12px;color:var(--accent);font-weight:700;padding-top:1px}
+.update-body{min-width:0}
+.update-body h3{font-size:14px;margin:0 0 3px}
+.update-body p{font-size:12.5px;color:var(--muted);margin:0}
+
+/* category */
+.cat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cat-item{display:flex;flex-direction:column;gap:4px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:12px 12px;transition:.15s}
+.cat-item:hover{border-color:var(--brand);background:#1d2739}
+.cat-item b{font-size:14px}
+.cat-item small{font-size:11.5px;color:var(--muted-2)}
+
+/* deep article */
+.article h3{font-size:16.5px;margin:20px 0 8px;color:#fff}
+.article h3:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#c4cee0;font-size:14.5px}
+.article ul{margin:0 0 12px;padding-left:20px;color:#c4cee0;font-size:14.5px}
+.article li{margin-bottom:6px}
+.article .compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 4px}
+.compare-box{background:#111a28;border:1px solid var(--line);border-radius:10px;padding:12px}
+.compare-box b{display:block;font-size:13.5px;color:var(--brand-soft);margin-bottom:6px}
+.compare-box p{font-size:12.5px;margin:0;color:var(--muted)}
+
+/* guide steps */
+.steps{display:flex;flex-direction:column;gap:0;counter-reset:step}
+.step{display:flex;gap:14px;padding:12px 0;border-bottom:1px dashed #263247}
+.step:last-child{border-bottom:0}
+.step-num{flex:none;width:28px;height:28px;border-radius:8px;background:#1f2a3d;color:var(--accent);display:grid;place-items:center;font-size:13px;font-weight:800;counter-increment:step}
+.step-num::before{content:counter(step)}
+.step-body h3{font-size:14.5px;margin:0 0 3px}
+.step-body p{font-size:13px;color:var(--muted);margin:0}
+
+/* faq */
+.faq-item{border:1px solid var(--line);border-radius:10px;margin-bottom:9px;background:var(--panel-2);overflow:hidden}
+.faq-item summary{padding:12px 14px;font-size:14px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:10px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";color:var(--brand-soft);font-weight:800;flex:none}
+.faq-item[open] summary::after{content:"−"}
+.faq-item p{margin:0;padding:0 14px 13px;font-size:13.5px;color:var(--muted)}
+
+/* comments */
+.comment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.comment{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+.comment-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}
+.comment-top b{font-size:13px;color:var(--accent-2)}
+.comment-top span{font-size:11px;color:var(--muted-2)}
+.comment p{font-size:13px;color:#c4cee0;margin:0}
+
+/* news */
+.news-list{display:flex;flex-direction:column;gap:0}
+.news-item{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid #223047;align-items:flex-start}
+.news-item:last-child{border-bottom:0}
+.news-thumb{flex:none;width:96px;border-radius:8px;overflow:hidden;background:#0f1520}
+.news-thumb img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.news-body h3{font-size:14.5px;margin:0 0 4px}
+.news-body .date{font-size:11.5px;color:var(--brand-soft);margin-right:8px}
+.news-body p{font-size:12.5px;color:var(--muted);margin:0}
+
+/* related tags */
+.tag-index{display:flex;flex-wrap:wrap;gap:8px}
+.tag-index a{font-size:13px;padding:6px 11px;border-radius:999px;background:#111a28;border:1px solid var(--line);color:var(--muted)}
+.tag-index a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* sidebar modules */
+.side-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.side-card h2{font-size:14px;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.side-card h2::before{content:"";width:3px;height:14px;background:var(--brand);border-radius:2px}
+.rank-list{display:flex;flex-direction:column;gap:0}
+.rank-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed #263247;align-items:baseline}
+.rank-item:last-child{border-bottom:0}
+.rank-no{flex:none;width:20px;font-size:13px;font-weight:800;color:var(--muted-2)}
+.rank-item:nth-child(1) .rank-no{color:#facc15}
+.rank-item:nth-child(2) .rank-no{color:#cbd5e1}
+.rank-item:nth-child(3) .rank-no{color:#fb923c}
+.rank-info{min-width:0}
+.rank-info b{display:block;font-size:13px;font-weight:600}
+.rank-info small{font-size:11px;color:var(--muted-2)}
+.timeline{display:flex;flex-direction:column;gap:0;padding-left:4px}
+.tl-item{position:relative;padding:0 0 14px 16px;border-left:1px solid #2f3c52}
+.tl-item:last-child{border-left-color:transparent;padding-bottom:0}
+.tl-item::before{content:"";position:absolute;left:-4px;top:5px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.tl-item b{display:block;font-size:12.5px}
+.tl-item span{font-size:11.5px;color:var(--muted-2)}
+.side-quote{font-size:13px;color:var(--muted);border-left:3px solid var(--brand);padding-left:12px;margin:0}
+
+/* footer */
+.site-footer{background:#0a0d13;border-top:1px solid var(--line);margin-top:10px}
+.footer-inner{width:min(1360px,calc(100% - 32px));margin:0 auto;padding:34px 0 24px}
+.footer-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:26px}
+.footer-brand p{font-size:13px;color:var(--muted);margin:10px 0 0;max-width:320px}
+.footer-col h3{font-size:13px;color:#fff;margin:0 0 10px}
+.footer-col a{display:block;font-size:12.5px;color:var(--muted);padding:3px 0}
+.footer-col a:hover{color:var(--brand-soft)}
+.footer-bottom{border-top:1px solid #1c2536;margin-top:26px;padding-top:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted-2)}
+.footer-bottom .sample{font-size:11.5px;color:var(--muted-2)}
+
+/* responsive */
+@media (max-width:1200px){
+  .layout{grid-template-columns:170px minmax(0,1fr) 270px;gap:20px}
+  .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:1024px){
+  .layout{grid-template-columns:minmax(0,1fr) 280px}
+  .channel-nav{display:none}
+  .hero-inner{grid-template-columns:1fr;gap:24px;padding:36px 0}
+  .hero-visual{max-width:520px}
+  .footer-grid{grid-template-columns:1.2fr 1fr 1fr}
+}
+@media (max-width:740px){
+  .layout{grid-template-columns:1fr;padding-top:22px}
+  .side-col{position:static}
+  .card-grid{grid-template-columns:1fr}
+  .comment-grid{grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .header-inner{gap:12px}
+  .header-search input{width:110px}
+  .main-nav{display:none}
+  .news-thumb{width:76px}
+  .hero h1{font-size:30px}
+  .section{padding:16px}
+  .footer-bottom{flex-direction:column}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<!-- 吸顶公告条 + 吸顶页头 -->
+<div class="sticky-top">
+  <div class="notice-bar">
+    <div class="notice-inner">
+      <span class="notice-tag">今日更新</span>
+      <span class="notice-text">11 月 8 日赛程已上线：<b>英雄联盟 S15 小组赛</b> 17:00 开打，<b>无畏契约冠军巡回赛</b> 20:00 接场，新增 3 场赛后回放。</span>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/#top" aria-label="今日大赛在线观看 首页">
+        <svg viewBox="0 0 100 100" role="img" aria-label="今日大赛在线观看标志">
+          <rect width="100" height="100" rx="20" fill="#111827"/>
+          <path d="M24 66 L50 26 L76 66 Z" fill="none" stroke="#f97316" stroke-width="8" stroke-linejoin="round"/>
+          <circle cx="50" cy="56" r="7" fill="#facc15"/>
+          <path d="M22 76 H78" stroke="#22d3ee" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-text">今日大赛在线观看</span>
+      </a>
+      <nav class="main-nav" aria-label="主题导航">
+        <a href="/#schedule">今日赛程</a>
+        <a href="/#featured">精选对阵</a>
+        <a href="/#updates">直播动态</a>
+        <a href="/#categories">项目分类</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#faq">观赛问答</a>
+      </nav>
+      <div class="header-search">
+        <input id="searchInput" type="search" placeholder="搜项目 / 战队 / 赛事" aria-label="站内搜索">
+        <button id="searchBtn" type="button">查找</button>
+      </div>
+    </div>
+    <div class="search-feedback" id="searchFeedback" role="status"></div>
+  </header>
+</div>
+
+<!-- 主题首屏 -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-kicker">TODAY ESPORTS MATCH</span>
+      <h1>今日大赛在线观看</h1>
+      <p>汇总 11 月 8 日当天可观看的电竞赛事直播入口、对阵时间、赛制说明和赛后回放，覆盖英雄联盟、DOTA2、无畏契约、CS2 与格斗项目，按开赛时间排列，方便安排观赛顺序。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/#schedule">查看今日赛程</a>
+        <a class="btn btn-ghost" href="/#featured">浏览精选对阵</a>
+      </div>
+      <div class="hero-meta">
+        <div><b>9</b>今日赛事场次</div>
+        <div><b>5</b>直播项目</div>
+        <div><b>3</b>场焦点对阵</div>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 520 300" role="img" aria-label="赛事直播界面抽象构图">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f2937"/><stop offset="1" stop-color="#111827"/>
+          </linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#f97316"/><stop offset="1" stop-color="#facc15"/>
+          </linearGradient>
+        </defs>
+        <rect x="10" y="18" width="500" height="264" rx="18" fill="url(#g1)" stroke="#2c3a52"/>
+        <rect x="32" y="40" width="300" height="168" rx="10" fill="#0b111c" stroke="#2c3a52"/>
+        <rect x="32" y="40" width="300" height="168" rx="10" fill="url(#g2)" opacity=".08"/>
+        <circle cx="182" cy="124" r="34" fill="none" stroke="#f97316" stroke-width="4"/>
+        <path d="M172 108 L200 124 L172 140 Z" fill="#facc15"/>
+        <rect x="32" y="222" width="300" height="10" rx="5" fill="#263247"/>
+        <rect x="32" y="222" width="196" height="10" rx="5" fill="url(#g2)"/>
+        <rect x="348" y="40" width="140" height="78" rx="10" fill="#141c2b" stroke="#2c3a52"/>
+        <rect x="362" y="54" width="70" height="8" rx="4" fill="#f97316"/>
+        <rect x="362" y="70" width="100" height="6" rx="3" fill="#33415a"/>
+        <rect x="362" y="84" width="86" height="6" rx="3" fill="#33415a"/>
+        <rect x="348" y="130" width="140" height="78" rx="10" fill="#141c2b" stroke="#2c3a52"/>
+        <rect x="362" y="144" width="52" height="8" rx="4" fill="#22d3ee"/>
+        <rect x="362" y="160" width="100" height="6" rx="3" fill="#33415a"/>
+        <rect x="362" y="174" width="74" height="6" rx="3" fill="#33415a"/>
+        <rect x="32" y="248" width="456" height="14" rx="7" fill="#1b2435" stroke="#2c3a52"/>
+        <rect x="32" y="248" width="120" height="14" rx="7" fill="#f97316" opacity=".7"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 三栏门户主体 -->
+<div class="wrap">
+  <div class="layout">
+
+    <!-- 左频道索引 -->
+    <aside class="channel-nav" aria-label="频道索引">
+      <h2>频道索引</h2>
+      <a class="active" href="/#schedule">今日赛程 <span>9</span></a>
+      <a href="/#featured">精选对阵 <span>8</span></a>
+      <a href="/#updates">直播动态 <span>10</span></a>
+      <a href="/#categories">项目分类 <span>8</span></a>
+      <a href="/#deep">深度解析 <span>6</span></a>
+      <a href="/#guide">观赛路径 <span>5</span></a>
+      <a href="/#faq">观赛问答 <span>6</span></a>
+      <a href="/#comments">社区讨论 <span>14</span></a>
+      <a href="/#news">相关资讯 <span>6</span></a>
+      <a href="/#related">延伸方向 <span>8</span></a>
+    </aside>
+
+    <!-- 中主内容 -->
+    <main class="main-col">
+
+      <!-- 1 主题领域概览 -->
+      <section class="section overview" id="overview">
+        <div class="section-head">
+          <h2>今日大赛在线观看的方向与内容<small>电竞赛事直播、赛程与观赛入口</small></h2>
+        </div>
+        <p>“今日大赛在线观看”关注的不是单一比赛，而是一天之内多个电竞赛事项目的集中开赛窗口。通常包含英雄联盟、DOTA2、无畏契约、CS2 和格斗游戏等项目的官方联赛、杯赛小组赛与淘汰赛。观众最常查的信息是：今天有哪些场次、几点开始、在哪个平台能看、对阵双方近期状态如何，以及错过直播后回放在哪里补看。</p>
+        <p>从内容类型看，赛事内容可以分为赛前信息、直播入口和赛后资料三块。赛前信息包括对阵表、首发名单、赛制说明和历史交手；直播入口对应官方频道与二路解说流；赛后资料则包含战报、数据面板和高光回放。对于想系统跟赛的观众，先按项目划分关注范围，再按开赛时间排列观赛顺序，比逐个平台翻找更高效。</p>
+        <p><span class="keyline">11 月 8 日</span>当天，英雄联盟 S15 小组赛进入第二轮，无畏契约冠军巡回赛展开八强对决，DOTA2 梦幻联赛与 CS2 秋季杯也有场次安排。不同项目的单局时长、暂停规则和加赛机制差异较大，安排连续观赛时需要预留缓冲时间。</p>
+      </section>
+
+      <!-- 2 精选内容推荐 -->
+      <section class="section" id="featured">
+        <div class="section-head">
+          <h2>今日精选对阵<small>按开赛时间与关注度排列</small></h2>
+          <a class="more" href="/#schedule">查看全部赛程</a>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <div class="card-cover">
+              <img src="https://picsum.photos/seed/lol-s15-r2-01/400/300" width="400" height="300" loading="lazy" alt="英雄联盟 S15 小组赛第二轮对阵封面">
+              <span class="type">英雄联盟</span>
+            </div>
+            <div class="card-body">
+              <h3>BLG 对阵 T1 · S15 小组赛第二轮</h3>
+              <p>两队在第一轮均取得 2 胜 0 负，本场直接决定小组头名归属。BLG 前期节奏依赖打野联动，T1 则更擅长中后期团战决策。</p>
+              <div class="tags"><span>S15</span><span>小组赛</span><span>焦点战</span></div>
+              <div class="card-foot"><span>17:00 开赛</span><b>热度 98</b></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-cover">
+              <img src="https://picsum.photos/seed/valorant-vct-qf/400/300" width="400" height="300" loading="lazy" alt="无畏契约冠军巡回赛八强赛封面">
+              <span class="type">无畏契约</span>
+            </div>
+            <div class="card-body">
+              <h3>EDG 对阵 PRX · VCT 八强赛</h3>
+              <p>EDG 在小组赛阶段保持双哨位体系，PRX 则以快攻提速著称。源工重镇与莲华古城可能成为关键地图。</p>
+              <div class="tags"><span>VCT</span><span>八强</span><span>BO3</span></div>
+              <div class="card-foot"><span>20:00 开赛</span><b>热度 95</b></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-cover">
+              <img src="https://picsum.photos/seed/dota2-dreamleague/400/300" width="400" height="300" loading="lazy" alt="DOTA2 梦幻联赛小组赛封面">
+              <span class="type">DOTA2</span>
+            </div>
+            <div class="card-body">
+              <h3>XG 对阵 Liquid · 梦幻联赛小组赛</h3>
+              <p>XG 近期偏好线优转推进，Liquid 的野区控制与后期运营更稳。双方近三次交手各胜一场，第三场打满 52 分钟。</p>
+              <div class="tags"><span>梦幻联赛</span><span>小组赛</span><span>BO2</span></div>
+              <div class="card-foot"><span>22:30 开赛</span><b>热度 88</b></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-cover">
+              <img src="https://picsum.photos/seed/cs2-autumn-cup/400/300" width="400" height="300" loading="lazy" alt="CS2 秋季杯四分之一决赛封面">
+              <span class="type">CS2</span>
+            </div>
+            <div class="card-body">
+              <h3>Spirit 对阵 Vitality · 秋季杯八强</h3>
+              <p>Spirit 的年轻步枪手组合在小组赛打出 1.18 团队评分，Vitality 则依靠老将残局处理。地图池中远古遗迹与核子危机值得关注。</p>
+              <div class="tags"><span>秋季杯</span><span>八强</span><span>BO3</span></div>
+              <div class="card-foot"><span>23:00 开赛</span><b>热度 86</b></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-cover">
+              <img src="https://picsum.photos/seed/streetfighter-cpt/400/300" width="400" height="300" loading="lazy" alt="街霸 6 白金赛八强封面">
+              <span class="type">格斗</span>
+            </div>
+            <div class="card-body">
+              <h3>街霸 6 白金赛 · 八强至决赛</h3>
+              <p>单日完成八强到决赛的紧凑赛程，采用双败赛制。肯、嘉米与豪鬼的使用率在本次赛事中明显上升。</p>
+              <div class="tags"><span>街霸6</span><span>白金赛</span><span>双败</span></div>
+              <div class="card-foot"><span>19:00 开赛</span><b>热度 82</b></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-cover">
+              <img src="https://picsum.photos/seed/lol-s15-r2-02/400/300" width="400" height="300" loading="lazy" alt="英雄联盟 S15 小组赛 GEN 对阵 WBG 封面">
+              <span class="type">英雄联盟</span>
+            </div>
+            <div class="card-body">
+              <h3>GEN 对阵 WBG · S15 小组赛第二轮</h3>
+              <p>GEN 的运营节奏在 25 分钟后胜率明显提升，WBG 需要依靠前期资源置换建立优势。双方中野对抗是观察重点。</p>
+              <div class="tags"><span>S15</span><span>小组赛</span><span>中韩对抗</span></div>
+              <div class="card-foot"><span>18:00 开赛</span><b>热度 90</b></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3 最新更新 / 热播动态 -->
+      <section class="section" id="updates">
+        <div class="section-head">
+          <h2>直播动态与更新<small>11 月 8 日当天</small></h2>
+        </div>
+        <div class="update-list">
+          <div class="update-item"><div class="update-time">今天 09:30</div><div class="update-body"><h3>英雄联盟 S15 小组赛第二轮赛程公布</h3><p>今日共 4 场 BO1，BLG 对阵 T1 安排在 17:00 首场。</p></div></div>
+          <div class="update-item"><div class="update-time">今天 10:15</div><div class="update-body"><h3>无畏契约 VCT 八强赛对阵表更新</h3><p>EDG 与 PRX 的胜者将进入 11 月 10 日半决赛，地图池已确认。</p></div></div>
+          <div class="update-item"><div class="update-time">今天 11:40</div><div class="update-body"><h3>DOTA2 梦幻联赛小组赛第 4 轮开打</h3><p>XG 对阵 Liquid 为首场，后续还有两场 BO2 连续进行。</p></div></div>
+          <div class="update-item"><div class="update-time">今天 12:20</div><div class="update-body"><h3>CS2 秋季杯八强战今日启动</h3><p>Spirit 与 Vitality 的比赛定于 23:00，采用 BO3 赛制。</p></div></div>
+          <div class="update-item"><div class="update-time">今天 13:05</div><div class="update-body"><h3>街霸 6 白金赛八强名单确认</h3><p>八名选手中有三名使用肯，两名使用嘉米，角色分布较为集中。</p></div></div>
+          <div class="update-item"><div class="update-time">今天 14:10</div><div class="update-body"><h3>英雄联盟 S15 昨日回放上线</h3><p>包含 BLG 对阵 FNC 与 T1 对阵 TL 两场完整回放及数据面板。</p></div></div>
+          <div class="update-item"><div class="update-time">今天 15:00</div><div class="update-body"><h3>VCT 赛后采访预告</h3><p>EDG 教练组将在比赛结束后接受中文流采访，预计 22:30 进行。</p></div></div>
+          <div class="update-item"><div class="update-time">今天 15:45</div><div class="update-body"><h3>DOTA2 今日首局 BP 倾向统计</h3><p>小组赛阶段猛犸与琼英碧灵优先级上升，前两手选取率超过六成。</p></div></div>
+          <div class="update-item"><div class="update-time">今天 16:20</div><div class="update-body"><h3>CS2 远古遗迹地图数据更新</h3><p>秋季杯至今该地图进攻方胜率 44%，偏向防守方。</p></div></div>
+          <div class="update-item"><div class="update-time">今天 16:50</div><div class="update-body"><h3>格斗项目直播流已开启</h3><p>街霸 6 白金赛八强阶段将在 19:00 准时开始，支持多语言解说。</p></div></div>
+        </div>
+      </section>
+
+      <!-- 4 分类入口 -->
+      <section class="section" id="categories">
+        <div class="section-head">
+          <h2>项目分类入口<small>按赛事类型查找</small></h2>
+        </div>
+        <div class="cat-grid">
+          <a class="cat-item" href="/#featured"><b>英雄联盟</b><small>S15 小组赛 · 4 场</small></a>
+          <a class="cat-item" href="/#featured"><b>DOTA2</b><small>梦幻联赛 · 3 场</small></a>
+          <a class="cat-item" href="/#featured"><b>无畏契约</b><small>VCT 八强 · 2 场</small></a>
+          <a class="cat-item" href="/#featured"><b>CS2</b><small>秋季杯 · 2 场</small></a>
+          <a class="cat-item" href="/#featured"><b>格斗游戏</b><small>街霸 6 白金赛 · 1 场</small></a>
+          <a class="cat-item" href="/#updates"><b>赛后回放</b><small>昨日 5 场已上线</small></a>
+          <a class="cat-item" href="/#guide"><b>观赛时间表</b><small>按开赛时间排序</small></a>
+          <a class="cat-item" href="/#deep"><b>赛制说明</b><small>BO1 / BO3 / 双败</small></a>
+        </div>
+      </section>
+
+      <!-- 5 深度解析正文 -->
+      <section class="section article" id="deep">
+        <div class="section-head">
+          <h2>深度解析：不同赛事项目的观赛节奏与判断维度<small>从赛制、地图池到战队风格</small></h2>
+        </div>
+        <h3>英雄联盟与 DOTA2 的观赛节奏差异</h3>
+        <p>英雄联盟 S15 小组赛采用 BO1，单局通常在 30 至 40 分钟之间，暂停和 BP 环节会额外增加 8 到 12 分钟。DOTA2 梦幻联赛小组赛为 BO2，即使 2 比 0 结束也可能耗时接近两小时。安排连续观赛时，英雄联盟适合按 45 分钟一场估算，DOTA2 则建议每场预留 75 分钟。</p>
+        <p>从判断维度看，英雄联盟更看重前 15 分钟的资源交换与线权，DOTA2 则要在 25 分钟后观察核心装备成型和买活决策。两种项目的暂停规则也不同：英雄联盟技术暂停通常较短，DOTA2 在大型线下赛中可能出现较长的设备调试时间。</p>
+        <h3>无畏契约与 CS2 的地图池逻辑</h3>
+        <p>无畏契约 VCT 八强赛为 BO3，地图选择采用 Ban/Pick 轮流制，源工重镇、莲华古城和亚海悬城是当前版本出现频率较高的三张图。CS2 秋季杯同样采用 BO3，但地图池更偏向传统竞技图，远古遗迹与核子危机的攻防胜率差异会直接影响选图策略。</p>
+        <div class="compare">
+          <div class="compare-box"><b>无畏契约</b><p>技能组合与信息获取决定回合节奏，单局 13 分制，加时赛每轮换边。观赛时优先关注先锋位与控场位的技能配合。</p></div>
+          <div class="compare-box"><b>CS2</b><p>经济管理与枪法对抗为核心，单局 13 分制，MR12 赛制。观赛时留意半起局和残局处理，这两类回合往往决定比赛走向。</p></div>
+        </div>
+        <h3>格斗项目的双败赛制与角色选择</h3>
+        <p>街霸 6 白金赛采用双败赛制，八强阶段胜者组与败者组交替进行，单日完成全部赛程。角色选择上，肯的压制力与嘉米的反击能力在当前版本较为突出，豪鬼则更依赖选手的操作稳定性。观看格斗赛事时，胜负往往取决于确认连段的成功率和版边处理，而不是单纯的伤害数值。</p>
+        <h3>如何判断一场比赛是否值得优先观看</h3>
+        <ul>
+          <li>看对阵双方近期状态：近五场胜率、地图池或英雄池重合度。</li>
+          <li>看赛制影响：BO1 容错率低，强队翻车概率更高；BO3 更能反映综合实力。</li>
+          <li>看版本与地图：新版本首次亮相的场次通常有更多实验性选角。</li>
+          <li>看直播流安排：官方流与二路解说在信息密度和解说风格上差异明显。</li>
+        </ul>
+      </section>
+
+      <!-- 6 体验指南 / 消费路径 -->
+      <section class="section" id="guide">
+        <div class="section-head">
+          <h2>观赛路径与时间安排建议<small>按内容消费顺序排列</small></h2>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="step-num"></div><div class="step-body"><h3>先看赛程总表，确定可观看时段</h3><p>11 月 8 日赛事从 17:00 持续到次日凌晨 1 点左右，先按自己的空闲时间圈出 2 到 3 场重点场次。</p></div></div>
+          <div class="step"><div class="step-num"></div><div class="step-body"><h3>按项目熟悉度排序</h3><p>不熟悉 DOTA2 的观众可以从英雄联盟 S15 小组赛入手，节奏更快、暂停更少；熟悉地图机制的观众可以优先看无畏契约八强赛。</p></div></div>
+          <div class="step"><div class="step-num"></div><div class="step-body"><h3>判断单场投入时间</h3><p>BO1 约 45 分钟，BO3 约 2 小时，BO2 约 75 分钟到 2 小时。连续观看两场 BO3 需要预留至少 4 小时。</p></div></div>
+          <div class="step"><div class="step-num"></div><div class="step-body"><h3>选择直播流或回放</h3><p>焦点战优先看直播，次要场次可在赛后查看回放与数据面板。回放通常在上线后 2 小时内提供完整版。</p></div></div>
+          <div class="step"><div class="step-num"></div><div class="step-body"><h3>用赛后资料补全信息</h3><p>战报、选手评分和地图数据能帮助判断比赛质量，也方便比较同一战队在不同项目中的表现。</p></div></div>
+        </div>
+      </section>
+
+      <!-- 7 FAQ -->
+      <section class="section" id="faq">
+        <div class="section-head">
+          <h2>今日大赛在线观看常见问答<small>赛制、时间与选择</small></h2>
+        </div>
+        <details class="faq-item" open>
+          <summary>英雄联盟 S15 小组赛 BO1 一般多久打完？</summary>
+          <p>单局比赛时间通常在 28 到 38 分钟之间，加上 BP、入场和技术暂停，整场按 45 分钟估算比较稳妥。如果出现长时间暂停，建议关注官方公告。</p>
+        </details>
+        <details class="faq-item">
+          <summary>无畏契约 VCT 八强赛和小组赛的赛制有什么区别？</summary>
+          <p>小组赛多为 BO3 单循环或双循环，八强赛开始采用淘汰制 BO3，部分赛事决赛为 BO5。淘汰制下没有第二次机会，选图和暂停策略会更保守。</p>
+        </details>
+        <details class="faq-item">
+          <summary>DOTA2 梦幻联赛 BO2 打平后怎么算积分？</summary>
+          <p>BO2 打平双方各得 1 分，2 比 0 获胜得 2 分。小组赛排名先看积分，再看胜负关系和净胜场，具体规则以赛事方公布为准。</p>
+        </details>
+        <details class="faq-item">
+          <summary>第一次看 CS2 比赛，从哪张地图开始看比较容易理解？</summary>
+          <p>核子危机和荒漠迷城的结构较直观，攻防路线清晰，适合新观众入门。远古遗迹的中路控制更复杂，可以等熟悉经济系统后再看。</p>
+        </details>
+        <details class="faq-item">
+          <summary>街霸 6 白金赛的双败赛制是什么意思？</summary>
+          <p>选手先进入胜者组，输一场掉入败者组，再输一场被淘汰。胜者组冠军和败者组冠军进入总决赛，总决赛通常对胜者组冠军有让分或重置规则。</p>
+        </details>
+        <details class="faq-item">
+          <summary>错过直播后，赛后回放一般什么时候上线？</summary>
+          <p>官方回放通常在比赛结束后 1 到 2 小时内上线，包含完整比赛和部分数据面板。焦点场次的高光剪辑会上线更快，但信息完整度不如全场回放。</p>
+        </details>
+      </section>
+
+      <!-- 8 用户评论 -->
+      <section class="section" id="comments">
+        <div class="section-head">
+          <h2>社区讨论：今日观赛安排<small>14 条讨论</small></h2>
+        </div>
+        <div class="comment-grid">
+          <div class="comment"><div class="comment-top"><b>晚风不加班</b><span>11-08 16:02</span></div><p>BLG 打 T1 这场肯定看直播，S15 小组赛头名之争比想象中关键，后面淘汰赛抽签会受影响。</p></div>
+          <div class="comment"><div class="comment-top"><b>键盘选手阿凯</b><span>11-08 15:48</span></div><p>无畏契约 EDG 对 PRX 我更看好打满三图，源工重镇这张图 PRX 的提速很容易把节奏拉乱。</p></div>
+          <div class="comment"><div class="comment-top"><b>只看回放的小林</b><span>11-08 15:30</span></div><p>DOTA2 的 BO2 太磨人了，准备明天看回放，今天先把英雄联盟的两场看完。</p></div>
+          <div class="comment"><div class="comment-top"><b>夜猫子观赛组</b><span>11-08 15:12</span></div><p>CS2 那场 23 点开，时间刚好接在 VCT 后面，今晚安排得挺满。</p></div>
+          <div class="comment"><div class="comment-top"><b>格斗区老张</b><span>11-08 14:55</span></div><p>街霸 6 八强里肯的使用率确实高，但嘉米的翻盘局也值得看，双败赛制下败者组更容易出状态。</p></div>
+          <div class="comment"><div class="comment-top"><b>数据面板爱好者</b><span>11-08 14:40</span></div><p>S15 小组赛第一轮的数据里，BLG 前 15 分钟经济差排在小组第一，这场对 T1 是检验。</p></div>
+          <div class="comment"><div class="comment-top"><b>四号位不买眼</b><span>11-08 14:22</span></div><p>梦幻联赛最近猛犸优先级又上来了，XG 如果不放猛犸可能会吃亏。</p></div>
+          <div class="comment"><div class="comment-top"><b>香蕉打游戏</b><span>11-08 14:05</span></div><p>VCT 八强赛的地图池比小组赛更吃 ban pick，莲华古城放不放出来很关键。</p></div>
+          <div class="comment"><div class="comment-top"><b>睡前一局CS</b><span>11-08 13:47</span></div><p>秋季杯远古遗迹进攻方胜率只有 44%，Vitality 选防守方开局的话优势会更明显。</p></div>
+          <div class="comment"><div class="comment-top"><b>周末补赛计划</b><span>11-08 13:20</span></div><p>今天场次太多，打算挑两场重点看，其他等回放，不然第二天上班顶不住。</p></div>
+          <div class="comment"><div class="comment-top"><b>老李看比赛</b><span>11-08 12:58</span></div><p>GEN 对 WBG 这场中野对抗很关键，WBG 前期如果拿不到资源，后面很难翻。</p></div>
+          <div class="comment"><div class="comment-top"><b>白金赛观众</b><span>11-08 12:35</span></div><p>格斗项目单日打完八强到决赛强度很高，选手体力和角色对策都会被放大。</p></div>
+          <div class="comment"><div class="comment-top"><b>不熬夜看直播</b><span>11-08 12:10</span></div><p>23 点那场 CS2 时间太晚，我还是等明天回放，先看 VCT。</p></div>
+          <div class="comment"><div class="comment-top"><b>二路解说听众</b><span>11-08 11:44</span></div><p>今天二路解说排得挺全，英雄联盟和无畏契约都有专门的分析流，适合想看细节的人。</p></div>
+        </div>
+      </section>
+
+      <!-- 9 相关资讯 -->
+      <section class="section" id="news">
+        <div class="section-head">
+          <h2>相关资讯<small>赛事动态与规则变化</small></h2>
+        </div>
+        <div class="news-list">
+          <article class="news-item">
+            <div class="news-thumb"><img src="https://picsum.photos/seed/lol-s15-news/600/400" width="600" height="400" loading="lazy" alt="英雄联盟 S15 小组赛赛程调整资讯配图"></div>
+            <div class="news-body"><h3><span class="date">2026-11-08</span>S15 小组赛第二轮赛程微调</h3><p>原定 18:00 的 GEN 对阵 WBG 提前至 17:45 进行，BLG 对阵 T1 仍为 17:00 首场。</p></div>
+          </article>
+          <article class="news-item">
+            <div class="news-thumb"><img src="https://picsum.photos/seed/vct-map-news/600/400" width="600" height="400" loading="lazy" alt="无畏契约 VCT 八强赛地图池更新配图"></div>
+            <div class="news-body"><h3><span class="date">2026-11-07</span>VCT 八强赛地图池更新，亚海悬城回归</h3><p>本次八强赛地图池新增亚海悬城，移除微风岛屿，源工重镇与莲华古城保持不变。</p></div>
+          </article>
+          <article class="news-item">
+            <div class="news-thumb"><img src="https://picsum.photos/seed/dota2-patch-news/600/400" width="600" height="400" loading="lazy" alt="DOTA2 梦幻联赛版本更新配图"></div>
+            <div class="news-body"><h3><span class="date">2026-11-06</span>DOTA2 梦幻联赛采用新版本 7.39c</h3><p>小组赛第三轮起切换至 7.39c，琼英碧灵与猛犸的基础属性调整可能影响 BP 优先级。</p></div>
+          </article>
+          <article class="news-item">
+            <div class="news-thumb"><img src="https://picsum.photos/seed/cs2-cup-news/600/400" width="600" height="400" loading="lazy" alt="CS2 秋季杯八强对阵公布配图"></div>
+            <div class="news-body"><h3><span class="date">2026-11-05</span>CS2 秋季杯八强对阵公布</h3><p>Spirit 与 Vitality 被分在同一半区，另一场八强赛由 Mouz 对阵 FaZe，比赛时间为 11 月 8 日至 9 日。</p></div>
+          </article>
+          <article class="news-item">
+            <div class="news-thumb"><img src="https://picsum.photos/seed/streetfighter-news/600/400" width="600" height="400" loading="lazy" alt="街霸 6 白金赛角色使用率统计配图"></div>
+            <div class="news-body"><h3><span class="date">2026-11-04</span>街霸 6 白金赛角色使用率统计出炉</h3><p>八强选手中肯使用率 37.5%，嘉米 25%，豪鬼 12.5%，角色分布较上一站白金赛更集中。</p></div>
+          </article>
+          <article class="news-item">
+            <div class="news-thumb"><img src="https://picsum.photos/seed/esports-schedule-news/600/400" width="600" height="400" loading="lazy" alt="多项目赛事直播流安排配图"></div>
+            <div class="news-body"><h3><span class="date">2026-11-03</span>多项目直播流今日起支持实时数据面板</h3><p>英雄联盟与无畏契约官方流新增实时经济差和地图控制率面板，回放版本同步更新。</p></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 10 相关推荐 -->
+      <section class="section" id="related">
+        <div class="section-head">
+          <h2>延伸观看方向<small>具体内容索引</small></h2>
+        </div>
+        <div class="tag-index">
+          <a href="/#featured">S15 小组赛第二轮</a>
+          <a href="/#featured">VCT 八强赛地图解析</a>
+          <a href="/#featured">梦幻联赛 BO2 积分规则</a>
+          <a href="/#featured">CS2 远古遗迹攻防数据</a>
+          <a href="/#featured">街霸 6 白金赛角色对策</a>
+          <a href="/#updates">英雄联盟昨日回放</a>
+          <a href="/#guide">观赛时间安排模板</a>
+          <a href="/#deep">BO1 与 BO3 赛制差异</a>
+        </div>
+      </section>
+
+      <!-- 11 补充板块：热门榜单 -->
+      <section class="section" id="ranking">
+        <div class="section-head">
+          <h2>今日大赛关注榜<small>按社区讨论热度排列</small></h2>
+        </div>
+        <div class="rank-list">
+          <div class="rank-item"><span class="rank-no">1</span><div class="rank-info"><b>BLG 对阵 T1 · S15 小组赛</b><small>英雄联盟 · 17:00 · 讨论 1280</small></div></div>
+          <div class="rank-item"><span class="rank-no">2</span><div class="rank-info"><b>EDG 对阵 PRX · VCT 八强</b><small>无畏契约 · 20:00 · 讨论 960</small></div></div>
+          <div class="rank-item"><span class="rank-no">3</span><div class="rank-info"><b>GEN 对阵 WBG · S15 小组赛</b><small>英雄联盟 · 17:45 · 讨论 870</small></div></div>
+          <div class="rank-item"><span class="rank-no">4</span><div class="rank-info"><b>XG 对阵 Liquid · 梦幻联赛</b><small>DOTA2 · 22:30 · 讨论 640</small></div></div>
+          <div class="rank-item"><span class="rank-no">5</span><div class="rank-info"><b>Spirit 对阵 Vitality · 秋季杯</b><small>CS2 · 23:00 · 讨论 580</small></div></div>
+          <div class="rank-item"><span class="rank-no">6</span><div class="rank-info"><b>街霸 6 白金赛八强</b><small>格斗 · 19:00 · 讨论 420</small></div></div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 右辅助栏 -->
+    <aside class="side-col" aria-label="辅助信息">
+      <div class="side-card">
+        <h2>今日开赛时间线</h2>
+        <div class="timeline">
+          <div class="tl-item"><b>17:00 BLG 对阵 T1</b><span>英雄联盟 S15 小组赛</span></div>
+          <div class="tl-item"><b>17:45 GEN 对阵 WBG</b><span>英雄联盟 S15 小组赛</span></div>
+          <div class="tl-item"><b>19:00 街霸 6 白金赛八强</b><span>格斗项目 · 双败赛制</span></div>
+          <div class="tl-item"><b>20:00 EDG 对阵 PRX</b><span>无畏契约 VCT 八强</span></div>
+          <div class="tl-item"><b>22:30 XG 对阵 Liquid</b><span>DOTA2 梦幻联赛</span></div>
+          <div class="tl-item"><b>23:00 Spirit 对阵 Vitality</b><span>CS2 秋季杯八强</span></div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <h2>热门项目速览</h2>
+        <div class="rank-list">
+          <div class="rank-item"><span class="rank-no">01</span><div class="rank-info"><b>英雄联盟 S15</b><small>小组赛第二轮 · 4 场</small></div></div>
+          <div class="rank-item"><span class="rank-no">02</span><div class="rank-info"><b>无畏契约 VCT</b><small>八强赛 · 2 场</small></div></div>
+          <div class="rank-item"><span class="rank-no">03</span><div class="rank-info"><b>DOTA2 梦幻联赛</b><small>小组赛 · 3 场</small></div></div>
+          <div class="rank-item"><span class="rank-no">04</span><div class="rank-info"><b>CS2 秋季杯</b><small>八强赛 · 2 场</small></div></div>
+          <div class="rank-item"><span class="rank-no">05</span><div class="rank-info"><b>街霸 6 白金赛</b><small>八强至决赛 · 1 日赛程</small></div></div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <h2>观赛提示</h2>
+        <p class="side-quote">BO1 容错率低，强队翻车概率更高；BO3 更能反映综合实力。连续观看两场 BO3 建议预留 4 小时以上。</p>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- 页尾 -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/#top">
+          <svg viewBox="0 0 100 100" width="30" height="30" role="img" aria-label="今日大赛在线观看标志">
+            <rect width="100" height="100" rx="20" fill="#111827"/>
+            <path d="M24 66 L50 26 L76 66 Z" fill="none" stroke="#f97316" stroke-width="8" stroke-linejoin="round"/>
+            <circle cx="50" cy="56" r="7" fill="#facc15"/>
+          </svg>
+          <span class="brand-text">今日大赛在线观看</span>
+        </a>
+        <p>聚合电竞赛事直播入口、今日赛程、项目对阵与赛后回放解析，按开赛时间组织观赛信息。</p>
+      </div>
+      <div class="footer-col">
+        <h3>赛事项目</h3>
+        <a href="/#featured">英雄联盟 S15</a>
+        <a href="/#featured">无畏契约 VCT</a>
+        <a href="/#featured">DOTA2 梦幻联赛</a>
+        <a href="/#featured">CS2 秋季杯</a>
+        <a href="/#featured">街霸 6 白金赛</a>
+      </div>
+      <div class="footer-col">
+        <h3>观赛服务</h3>
+        <a href="/#schedule">今日赛程</a>
+        <a href="/#updates">直播动态</a>
+        <a href="/#guide">观赛路径</a>
+        <a href="/#faq">常见问答</a>
+        <a href="/#ranking">关注榜</a>
+      </div>
+      <div class="footer-col">
+        <h3>内容索引</h3>
+        <a href="/#deep">深度解析</a>
+        <a href="/#comments">社区讨论</a>
+        <a href="/#news">相关资讯</a>
+        <a href="/#related">延伸方向</a>
+        <a href="/#categories">项目分类</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 今日大赛在线观看 · 赛事内容聚合示例页</span>
+      <span class="sample">部分内容为示例数据，仅用于展示页面结构</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var input = document.getElementById('searchInput');
+  var btn = document.getElementById('searchBtn');
+  var feedback = document.getElementById('searchFeedback');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main .section'));
+
+  function clearMarks(){
+    feedback.style.display = 'none';
+    feedback.textContent = '';
+  }
+
+  function doSearch(){
+    var q = (input.value || '').trim();
+    if(!q){ clearMarks(); return; }
+    var lower = q.toLowerCase();
+    var found = [];
+    sections.forEach(function(sec){
+      var text = (sec.textContent || '').toLowerCase();
+      if(text.indexOf(lower) !== -1){
+        var titleEl = sec.querySelector('h2');
+        found.push(titleEl ? titleEl.textContent.split('：')[0].split('（')[0].trim() : '相关栏目');
+      }
+    });
+    if(found.length){
+      feedback.textContent = '找到 ' + found.length + ' 个相关栏目：' + found.slice(0,3).join('、') + (found.length>3?' 等':'');
+    } else {
+      feedback.textContent = '未找到与“' + q + '”匹配的今日大赛内容，试试项目名或战队名。';
+    }
+    feedback.style.display = 'block';
+    clearTimeout(window.__searchTimer);
+    window.__searchTimer = setTimeout(function(){ feedback.style.display='none'; }, 5000);
+  }
+
+  btn.addEventListener('click', doSearch);
+  input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); doSearch(); } });
+  input.addEventListener('input', function(){ if(!input.value.trim()){ clearMarks(); } });
+})();
+</script>
+</body>
+                                                                            </html>
